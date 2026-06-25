@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Project Title</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:500px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .feature-image img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:180px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+      cursor:pointer;
+      transition:0.2s ease;
+    }
+
+    .gallery-item:hover{
+      transform:scale(1.02);
+      box-shadow:var(--shadow);
+    }
+
+    /* =========================
+       LIGHTBOX
+    ========================== */
+
+    .lightbox{
+      display:none;
+      position:fixed;
+      z-index:2000;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      background-color:rgba(0,0,0,0.8);
+      padding:2rem;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .lightbox.active{
+      display:flex;
+    }
+
+    .lightbox-content{
+      position:relative;
+      max-width:90vw;
+      max-height:90vh;
+    }
+
+    .lightbox-image{
+      max-width:100%;
+      max-height:85vh;
+      border-radius:var(--radius);
+    }
+
+    .lightbox-close{
+      position:absolute;
+      top:-2.5rem;
+      right:0;
+      font-size:2rem;
+      color:white;
+      cursor:pointer;
+      background:none;
+      border:none;
+      padding:0;
+      width:2.5rem;
+      height:2.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:0.2s ease;
+    }
+
+    .lightbox-close:hover{
+      opacity:0.7;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:320px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+
+        <a href="index.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        Vector Data Mapping
+      </h1>
+
+      <p>
+        The purpose of this project is to determine if urban planning is effective in cities. One part of this project is to determine whether amenities, such as pharmacies, as placed within walking distance of residents. The other part of the project is to determine what is the perception of men vs women on different urban areas. For the first part of the project, my research question is 'How many house and apartment, in Lyon, France, are within in 1,2, 5 minutes walking distance to a pharmacies?' My second research questions is 'Where in Utrecht is the greenness according to men versus women?'' This address the challenges of urban planning, such as, making it accessible and green. 
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FEATURE IMAGE
+  ========================== -->
+
+  <div class="container">
+
+    <div class="feature-image">
+      <img src="images/Vectors isochrone Lyon Pharmacies map.png" alt="Feature Image">
+    </div>
+
+  </div>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2>Project Overview</h2>
+
+            <p>
+              The project looks at two different cities and two different aspects of urban planning. The first part is to determine whether pharmacies are within walking distance from residential areas. The study area for this will be Lyon, France. This is of social significance because it is important that citizens of a city can have access to pharmaceuticals products without having to own a car or use public transport. GIS is appropriate for this project because it will allow me to map both residential areas and pharmacies. By using isochrones it can determine what areas lie within walking distance from the pharmacies.
+            </p>
+
+            <p>
+              The second project will be conducted in Utrecht and is to determine what areas in the cities are the greenness according men vs women. Having green areas is an important aspect that a city must have because it helps absorbs CO2 and regulates temperature. They are also areas which the public can enjoy. GIS is an appropriate method as one can do a density analysis of survey results to determine which areas are perceived as the greenest and the difference between men and women. 
+            </p>
+
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Methods</h2>
+
+            <p>
+              For the first part of the project I used QGIS to make isochrone layer using the plugins; Open Street Maps and Open Route Services. Then I used the vector geometry function to count the residential point within the isochrone layer. For the second part I used QGIS to do a density analysis. 
+            </p>
+
+            <ul>
+              <li>Data collection: 1st part = Quick Open Street Maps to obtain the pharmacies points and residential points, 2nd part = survey results, using ArcGIS, from men and women in Utrecht</li>
+              <li>Spatial analysis techniques: 1st part = I will be using isochrone which measure temporal proximity 2nd part = I will be using density map analysis because I want to see if the survey points, which had similar values, were close to each other.</li>
+              <li>Cartographic design choices: The cartographic design choices that will need to be made is what colours to use and transparency of the isochrone. These colours will have to be visible to all and not be a colour which has any connotations. I will also have to choose the density for each point for the density map analysis. </li>
+              <li>Software and tools used: QGIS (plugins = Quick Open Street Maps & Open Route Services) and ArcGIS</li>
+            </ul>
+
+          </div>
+
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Results & Findings</h2>
+
+            <p>
+              For the first part of the project, I found that there was; 139 houses/apartments which are within a 5 minute walk from a pharmacy, 53 houses/apartments which are within a 2 minute walk from a pharmacy and 37 houses/apartments which are within a 1 minute walk from a pharmacy. I also found that most of the pharmacies were located in similar locations as many of the isochrone layers overlapped. But overall the map seemed to show that there should be a pharmacy near most houses that is within at least a 5 minute walk. This shows that the urban planning was well executed.
+            </p>
+
+            <p>
+              For the second part of the project, there was a problem with the findings because there was only one street which had values from both women and men. However, in this street it showed that women scored it higher in greenness compared to the men. Also it was interesting to see that the women choose areas to survey that were green whereas men surveyed areas which weren’t. Overall, when looking at the map the greenest areas tended to be located on the outskirts of the city. Therefore, planning recommendation could be to include more green areas in the centre. 
+
+            </p>
+
+            <div class="gallery">
+
+              <div class="gallery-item">
+                <img src="images/Vectors isochrone Lyon Pharmacies map.png" alt="Feature Image">
+              </div>
+
+              <div class="gallery-item">
+                <img src="images/Vector survey map.png" alt="Feature Image">
+              </div>
+
+
+          </div>
+
+          </div>
+
+
+
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p>
+              During this project I learnt how to make isochrone layer and density maps on QGIS. I also learnt about the different spatial analysis one could use, such as, kernel and density, aerial interpolation, classification and clustering, point pattern analysis. 
+            </p>
+
+            <p>
+             My project themselves had limitation. For the my isochrone layer it only counted the residential areas which were in my canvas view. This means that there could have been more apartments which were in walking distance. For the second part, as mentioned above, the survey results could not be used to compare men and women. This was because by accident men only went to one areas and the women to another. Another issue was that the density to scale produced by QGIS for men and women results were different. This meant it was more difficult to analysis the data by colour on the map. 
+            </p>
+
+            <p>
+             In the future imporvements could be made to both these maps. For example, for the first project maybe a larger canvas screen could be used which make sure to encompass all results. For the second part when conducting the survey one could have paired a man and a woman together to make sure at each point they had both genders. In addition, whilst filling out the survey myself I discovered that these results were a very personal opinion. This means that one should either put people in groups or put very clear instruction of how to rate certain aspects. This could maybe be done by providing an example of a site which would score each value. It also allowed me to realise how subjective survey results are because two different people might have different opinions on what to rank an area.
+            </p> 
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3>Project Details</h3>
+
+            <p><strong>Student:</strong> Juliette Lemaitre</p>
+
+            <p><strong>Course:</strong> UCSCIEESL5	Geographical Information Systems (GIS)</p>
+
+            <p><strong>Instructor:</strong> Britta Ricker</p>
+
+            <p><strong>Date:</strong> Spring 2026</p>
+
+            <p><strong>Study Area:</strong> Lyon, France and Utrecht</p>
+
+          </div>
+ 
+          <!-- SOFTWARE -->
+          <div class="sidebar-card">
+
+            <h3>Software & Tools</h3>
+
+            <p>QGIS</p>
+            <p>ArcGIS Pro</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+  <!-- =========================
+       LIGHTBOX MODAL
+  ========================== -->
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <img class="lightbox-image" id="lightbox-image" src="" alt="Enlarged image">
+    </div>
+  </div>
+
+  <script>
+    // Get all gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+
+    // Add click event to each gallery item
+    galleryItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        if (img) {
+          lightboxImage.src = img.src;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    // Close lightbox function
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+
+</body>
+</html>

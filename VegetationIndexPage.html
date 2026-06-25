@@ -1,0 +1,644 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Project Title</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:500px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .feature-image img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:180px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gallery-item:hover{
+      transform:translateY(-3px);
+      box-shadow:0 18px 32px rgba(37,99,235,0.12);
+    }
+
+    .gallery-item img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+      background:transparent;
+    }
+
+    .lightbox-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15,23,42,0.78);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:2rem;
+      z-index:2000;
+    }
+
+    .lightbox-overlay.active{
+      display:flex;
+    }
+
+    .lightbox-overlay img{
+      max-width:90vw;
+      max-height:90vh;
+      border-radius:18px;
+      box-shadow:0 24px 50px rgba(15,23,42,0.35);
+      object-fit:contain;
+    }
+
+    .lightbox-overlay .close-button{
+      position:absolute;
+      top:1.5rem;
+      right:1.5rem;
+      width:2.75rem;
+      height:2.75rem;
+      border:none;
+      border-radius:999px;
+      background:#ffffff;
+      color:#1f2937;
+      font-size:1.25rem;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 14px 32px rgba(15,23,42,0.18);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:320px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+
+        <a href="index.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        Vegetation Index Maps
+      </h1>
+
+      <p>
+       The purpose of this project is to create a Vegetation Index. Therefore, I have decided to create a Vegetation Index Maps of Angola in 2018 and 2024 to see whether deforestation has occurred. I chose Angola because it is an area which, acording to the UN, is experiencing a lot of deforestation. These map will therefore address SDG 15, life on land, and 13, climate action. Deforestation is a severe problem as not only does it affect ecosystems, but also climate change. 
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Remote Sensing
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FEATURE IMAGE
+  ========================== -->
+
+  <div class="container">
+
+    <div class="feature-image">
+      <img src="images/Difference in NDVI.png" alt="Feature Image Placeholder" />
+    </div>
+
+  </div>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2>Project Overview</h2>
+
+            <p>
+             Before creating the maps which look at vegetation index we first need to understand what an orthomosaic is. An othomosaic is the output when multiple images, which have been taken from arial drone or satellites, are overlayed to produce a continuous image of section of a map.  
+            </p>
+
+            <p>
+              As mentioned, above the multiple overlayed images are taken by satellite imaging, specifically multispectral satellite imagery. Multispectral satellite imagery is the process which uses multiple specific wavelength to capture data. It does this by only recording red, green and blue. Through this process it can capture specific layers of information, such as, plant health, moisture in soil and so on. This imaging technique is thus very important as it can help determine which region within a country have dry soil or unhealthy plant life. This can lead to government targetting specific areas and improving, for example, irrigation systems. This satellite imaging is also relevant to sustainable development. By looking at the examples mentioned above one can see that the layers already could be useful for goal 15, 3 and 6.  
+            </p>
+
+            <p>
+              An example of a multispectral imaging satellite is Sential 2. Sential 2 is a passive satellite and its payload is both a multi-spectral instrument and an optical communication payload. It runs by measuring the naturally reflected sunlight from the earth surface instead of producing its own energy signal.
+            </p>
+
+            <p>
+              Now that we understand how to create a vegetation index map using both orthomosaics and satellites, we need to understand what the index is. The vegetation index is a mathematical formula applied to orthomosaics to determine health, density and vigor of the plants in that area. They are used for soil management, water management, precision agriculture and climate monitoring. A specific example of a vegetation index is the NDVI. The NDVI or the normalized difference vegetation index is a method to measure the plants of a given area greenness and health. The index does this by assessing the difference between near-infrared and red light reflectance. This is because plants which have healthy chlorophyll reflect more near-infrared and absorb more red light. This is why your choice of time during the year for your orthomosaic map is important, because if one is looking at NDVI the plants phenology changes with seasons. 
+            </p>
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Methods</h2>
+
+            <p>
+              To make an NDVI map on QGIS we first need to attain the orthomosaic. However, as one can imagine clouds will distort with the product of an orthomosaic. So, to make a cloudless composite orthomosaic from open data one can use an program such as Google Earth Engine. To get a cloudless composite one can code this to find the ariel images without them. Then once you have written your code you can highlight your region of interest using the polygon function. This is basically drawing a box around the area you want ariel images for. Once you have done this, you determine the time period of interest and you can run your code. This should render the cloudless orthomosaic which you can then download. 
+            </p>
+
+            <ul>
+              <li>Data collection = Google Earth Engine</li>
+              <li>Remote sensing processing = Google Earth Engine</li>
+              <li>Cartographic design choice = This will include what colour to use and the range for the NDVIs</li>
+              <li>Software and tools used = the vegetation index and NDVI maps will be rendered using QGIS</li>
+            </ul>
+
+          </div>
+
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Results & Findings</h2>
+
+            <p>
+              The results from these maps were that there was less healthy vegetation in 2024 compared to 2018. This can be seen by comparing both NDVI maps form each year. This can also be seen by looking at the difference map which shows value between 0-0.3 which means that the NDVI was larger in 2018 than 2024. This implies that deforestation has occurred in this region. Therefore planning recommendation could be reforestation. 
+            </p>
+
+            <div class="gallery">
+
+              <div class="gallery-item">
+                <img src="images/Angola_deforestation 2018.png" alt="NDVI Map" />
+              </div>
+
+              <div class="gallery-item">
+                <img src="images/Angola_deforestation 2024.png" alt="NDVI Difference Map" />
+              </div>
+
+              <div class="gallery-item">
+                <img src="images/NDVI Angola 2018.png" alt="NDVI Difference Map" />
+              </div>
+
+               <div class="gallery-item">
+                <img src="images/NDVI 2024 Angola deforestation.png" alt="NDVI Difference Map" />
+              </div>
+
+              <div class="gallery-item">
+                <img src="images/Difference in NDVI.png" alt="NDVI Difference Map" />
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p>
+              In this project I have learnt how to create an orthomosaic in Google Earth Engine and make a Vegetation Index Map in QGIS. A limitation to this project is that QGIS struggled with the size of the orthomosaic file because my area was to big. This meant that I had to redo my ortomosaic again for QGIS to work. Therefore, one lesson I have learnt is always go for the smallest area when downloading data. Another, limitation to this project was despite me changing the area size my QGIS still struggled to download my final project maps. This meant that I had to screenshot my two true colour maps. This means that my scale might not be as accurate and the quality of the maps are poor. So for future improvement, it is best to choose a small area or use a computer with more power. 
+            </p>
+
+            <p>
+              To improve my project for the future, it would have been nice to look at different areas in Angola to see if they experienced similar deforestation patterns between 2018-2024. It would have also been nice to see each year in between 2018-2024 to see the deforestation progress. 
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3>Project Details</h3>
+
+            <p><strong>Student:</strong> Juliette Lemaitre</p>
+
+            <p><strong>Course:</strong> UCSCIEESL5	Geographical Information Systems (GIS)</p>
+
+            <p><strong>Instructor:</strong> Britta Ricker</p>
+
+            <p><strong>Date:</strong> Spring 2026</p>
+
+            <p><strong>Study Area:</strong> Angola</p>
+
+          </div>
+
+          <!-- SOFTWARE -->
+          <div class="sidebar-card">
+
+            <h3>Software & Tools</h3>
+
+            <p>QGIS</p>
+
+            <p>Google Earth Engine</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="lightbox-overlay" id="galleryLightbox" aria-hidden="true">
+    <button class="close-button" id="lightboxClose" type="button" aria-label="Close expanded image">×</button>
+    <img src="" alt="" id="lightboxImage" />
+  </div>
+
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+  <script>
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('galleryLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeButton = document.getElementById('lightboxClose');
+
+    const hideLightbox = () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        if (!img) return;
+
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt || 'Expanded gallery image';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeButton.addEventListener('click', hideLightbox);
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        hideLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+        hideLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,720 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Student Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1240px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* ======================
+       NAVIGATION
+    ======================= */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.1rem;
+      letter-spacing:0.02em;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:1.5rem;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:0.95rem;
+      transition:0.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--accent);
+    }
+
+    /* ======================
+       HERO
+    ======================= */
+
+    .hero{
+      padding:7rem 0 5rem;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:3rem;
+      align-items:center;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.5rem,6vw,5rem);
+      line-height:1.1;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:700px;
+      font-size:1.1rem;
+    }
+
+    .hero-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      box-shadow:var(--shadow);
+      border:1px solid var(--border);
+    }
+
+    .hero-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .hero-card ul{
+      list-style:none;
+      display:grid;
+      gap:0.8rem;
+    }
+
+    .hero-card li{
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .button{
+      display:inline-block;
+      margin-top:2rem;
+      padding:0.95rem 1.5rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* ======================
+       SECTIONS
+    ======================= */
+
+    section{
+      padding:5rem 0;
+    }
+
+    .section-title{
+      margin-bottom:2.5rem;
+    }
+
+    .section-title h2{
+      font-size:2rem;
+      margin-bottom:0.8rem;
+      font-family:'Merriweather',serif;
+    }
+
+    .section-title p{
+      color:var(--muted);
+      max-width:760px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr minmax(120px,180px);
+      gap:1.5rem;
+      align-items:center;
+      margin-top:2rem;
+    }
+
+    .about-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .about-image{
+      width:auto;
+      max-width:180px;
+      min-height:140px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      justify-self:center;
+    }
+
+    .about-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* ======================
+       MAP GRID
+    ======================= */
+
+    .map-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:2rem;
+    }
+
+    .map-card{
+      display:block;
+      background:var(--surface);
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      transition:0.25s ease;
+      color:inherit;
+    }
+
+    .map-card:hover{
+      transform:translateY(-6px);
+      text-decoration:none;
+    }
+
+    .map-image{
+      height:260px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      font-size:1rem;
+      border-bottom:1px solid var(--border);
+      overflow:hidden;
+    }
+
+    .map-image img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+    }
+
+    .map-content{
+      padding:1.6rem;
+    }
+
+    .map-content h3{
+      margin-bottom:0.7rem;
+      font-size:1.15rem;
+    }
+
+    .map-content p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+    
+
+    /* ======================
+       SKILLS
+    ======================= */
+
+    .skills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.8rem;
+      margin-top:1.5rem;
+    }
+
+    .skill{
+      padding:0.55rem 1rem;
+      border-radius:999px;
+      background:var(--accent-light);
+      color:var(--accent);
+      font-size:0.9rem;
+      font-weight:500;
+    }
+
+    /* ======================
+       ABOUT SECTION
+    ======================= */
+
+    .about-box{
+      background:var(--surface);
+      padding:2rem;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .about-box p{
+      color:var(--muted);
+    }
+
+    /* ======================
+       CONTACT
+    ======================= */
+
+    .contact-card{
+      background:var(--surface);
+      padding:2rem;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-card p{
+      margin-bottom:1rem;
+    }
+
+    /* ======================
+       FOOTER
+    ======================= */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* ======================
+       MOBILE
+    ======================= */
+
+    @media(max-width:900px){
+
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .about-grid{
+        grid-template-columns:1fr;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+      .nav-links{
+        justify-content:center;
+      }
+
+      .hero{
+        padding-top:5rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================
+       HEADER
+  ======================= -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Portfolio
+        </div>
+
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#maps">Maps</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- ======================
+       HERO
+  ======================= -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="hero-grid">
+
+        <div>
+
+          <h1>
+            GIS & Cartography Portfolio
+          </h1>
+
+          <p>
+           This website is a showcase of the work I have done during the GIS lab. The point of this course is to develops my skills in GIS by making different types of maps using different programs, such as QGIS and ArcGIS. Before going on to the work I have produced we need to understand what GIScience and GIS. GIScience , or Geographic Information Science, is the study of geographic information and phenomena. It looks at how geographic information works and how people use it. An example, of geographic information is how we determine space or how people interact with geographical technology. To help us understand this geographic information we use tools such as GIS. GIS allows us to bring spatial data and organise it in a coordinate system so that people can understand the information. This helps governments and other organisation make more informed decisions. For example, GIS can help determine if deforestation in an area has worsened over time by making a vegetation index map. 
+          </p>
+
+          <a href="#maps" class="button">
+            View Maps
+          </a>
+
+        </div>
+
+        <div class="hero-card">
+
+          <h3>Portfolio Highlights</h3>
+
+          <ul>
+            <li>• GIS Mapping Projects</li>
+            <li>• Spatial Analysis</li>
+            <li>• Remote Sensing</li>
+            <li>• Cartographic Design</li>
+            <li>• Sustainability Applications</li>
+            <li>• Interactive Web Maps</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+       ABOUT
+  ======================= -->
+
+  <section id="about">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>About Me</h2>
+
+      </div>
+
+      <div class="about-box about-grid">
+
+        <div>
+          <p>
+            My name is Juliette Lemaitre and I am a Biology and Earth and Environment student at UCU. I have never done any work with GIS before, therefore I took this lab course to develop my skills in this area. I am interested in conservation, sustainability and environmental planning. My work in this portfolio will focus on using geospatial technologies to better comprehend social and environmental problems.
+          </p>
+        </div>
+
+        <div class="about-image">
+          <img src="images/P - Copy.png" alt="About me" />
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+       MAPS
+  ======================= -->
+
+  <section id="maps">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Map Portfolio</h2>
+
+      </div>
+
+      <div class="map-grid">
+
+        <!-- MAP 1 -->
+        <a href="ChoroplethMapPage.html" class="map-card">
+
+          <div class="map-image">
+            <img src="images/UN_wom_par_final - Copy.png" alt="Map 1 Screenshot" />
+          </div>
+
+          <div class="map-content">
+
+            <h3>Choropleth Map of SDG</h3>
+
+            <p>
+              This choropleth project was to make a map of one of the SDG indicators. The method used to do this was to download the UN’s data for an indicator and then use QGIS to make the map. The purpose of my two maps was to show the two indicators for the target 5.5. 
+            </p>
+
+          </div>
+
+        </a>
+
+        <!-- MAP 2 -->
+        <a href="VectorMapPage.html" class="map-card">
+
+          <div class="map-image">
+            <img src="images/Vectors isochrone Lyon Pharmacies map - Copy.png" alt="Map 2 Screenshot" />
+          </div>
+
+          <div class="map-content">
+
+            <h3>Vector Data Mapping</h3>
+
+            <p>
+              The vector project was to make two different maps: an isochrone map and a density map. For the isochrone map I used Open Street Maps and QGIS. For, the density map I used the same method as before, but I also used the data I collected, with my lab group, from a survey of the area. The isochrone map’s purpose was to show if necessary amenities are within walking distance to residence. The density map was to show how men and women score differently the same area on certain characteristics. 
+            </p>
+
+          </div>
+
+        </a>
+
+        <!-- MAP 3 -->
+        <a href="DigitalElevationMapPage.html" class="map-card">
+
+          <div class="map-image">
+            <img src="images/Final Rotterdam DEM - Copy.png" alt="Map 3 Screenshot" />
+          </div>
+
+          <div class="map-content">
+
+            <h3>Digital Elevation Map</h3>
+
+            <p>
+              The Digital Elevation Map project was to use an old map of a river and make a DEM of the modern day area. The method to make this map required finding a map online and then using the DSM and DTM plugin on QGIS to create a map of the same area and overlay the old map. The purpose of the map is to show the differences between the two maps and see how they have changed and for what reasons. 
+            </p>
+
+          </div>
+
+        </a>
+
+        <!-- MAP 4 -->
+        <a href="VegetationIndexPage.html" class="map-card">
+
+          <div class="map-image">
+            <img src="images/Difference in NDVI - Copy.png" alt="Map 4 Screenshot" />
+          </div>
+
+          <div class="map-content">
+
+            <h3>Vegetation Index Map</h3>
+
+            <p>
+              The Vegetation Index project was to make a NDVI map of one area at two different years. To make these maps I used Google Earth Engine and QGIS. The purpose of this map was to see how the vegetation in the area has changed over time due to deforestation.
+            </p>
+
+          </div>
+
+        </a>
+
+        <!-- MAP 5 -->
+        <a href="ImageClassificationPage.html" class="map-card">
+
+          <div class="map-image">
+            <img src="images/supervised pixel based classification.png" alt="Map 5 Screenshot" />
+          </div>
+
+          <div class="map-content">
+
+            <h3>Image Classification</h3>
+
+            <p>
+             The Image classification project was to make a supervised, unsupervised and NDVI classification map. To make these maps I used ArcGIS pro. The purpose of these maps is to see the land use of an area and if it is impacting the natural landscape. 
+            </p>
+
+          </div>
+
+        </a>
+
+        <!-- MAP 6 -->
+        <a href="MulticriteriaAnalysisPage.html" class="map-card">
+
+          <div class="map-image">
+            <img src="images/MCAfinal map.png" alt="Map 6 Screenshot" />
+          </div>
+
+          <div class="map-content">
+
+            <h3>Multicriteria Analysis</h3>
+
+            <p>
+              The multicriteria analysis project was to examine a research paper that used this method with GIS. The purpose of this project is to allow me to fully understand the method and it’s importance for decision making. 
+            </p>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+       SKILLS
+  ======================= -->
+
+  <section id="skills">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Technical Skills</h2>
+
+        <p>
+          Highlight GIS software, programming languages,
+          and spatial analysis methods.
+        </p>
+
+      </div>
+
+      <div class="about-box">
+
+        <div class="skills">
+
+          <div class="skill">QGIS</div>
+          <div class="skill">ArcGIS Pro</div>
+          <div class="skill">Google Earth Engine</div>
+          <div class="skill">Remote Sensing</div>
+          <div class="skill">Spatial Analysis</div>
+          <div class="skill">Cartography</div>
+          <div class="skill">Python</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">GeoJSON</div>
+          <div class="skill">MapLibre GL</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+       CONTACT
+  ======================= -->
+
+  <section id="contact">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Contact</h2>
+
+
+      </div>
+
+      <div class="contact-card">
+
+        <p><strong>Name:</strong> Juliette Lemaitre</p>
+
+        <p><strong>Email:</strong> j.m.lemaitre@students.uu.nl</p>
+
+        <p><strong>University:</strong> University College Utrecht</p>
+
+        <p><strong>GitHub:</strong> jlemaitre5869</p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ======================
+       FOOTER
+  ======================= -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

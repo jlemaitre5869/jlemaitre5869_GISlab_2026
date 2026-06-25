@@ -1,0 +1,745 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Project Title</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:500px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+    }
+
+    .feature-image img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius: inherit;
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:180px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: inherit;
+      cursor: zoom-in;
+    }
+
+    /* Embedded iframe inside gallery item */
+    .gallery-item.gallery-iframe{
+      position:relative;
+      overflow:hidden;
+      min-height:320px;
+      height:320px;
+      padding:0;
+    }
+
+    .gallery-item.gallery-iframe .iframe-wrapper{
+      width:100%;
+      height:100%;
+    }
+
+    .gallery-item.gallery-iframe iframe{
+      width:270%;
+      height:270%;
+      border:0;
+      display:block;
+      border-radius:inherit;
+      transform: scale(0.4);
+      transform-origin: top left;
+    }
+
+    .gallery-item .expand-btn{
+      position:absolute;
+      top:8px;
+      right:8px;
+      background:rgba(0,0,0,0.6);
+      color:white;
+      border:0;
+      padding:6px 8px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:0.9rem;
+      z-index:5;
+    }
+
+    /* Modal iframe styles */
+    .image-modal .modal-iframe{
+      width:90%;
+      height:90%;
+      border-radius:12px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.5);
+      background:white;
+      overflow:hidden;
+    }
+
+    .image-modal .modal-iframe iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    /* Lightbox modal for viewing images larger */
+    .image-modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.6);
+      z-index:2000;
+      padding:2rem;
+    }
+
+    .image-modal.open{ display:flex; }
+
+    .image-modal img{
+      max-width:90%;
+      max-height:90%;
+      border-radius:12px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.5);
+      cursor: zoom-out;
+    }
+
+    .image-modal .modal-close{
+      position:absolute;
+      top:1rem;
+      right:1rem;
+      background:transparent;
+      border:none;
+      color:white;
+      font-size:2rem;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:320px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          Choropleth Map of SDG
+        </div>
+
+        <a href="index.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        Choropleth Map of SDG 5.5.1 and 5.5.2
+      </h1>
+
+      <p>
+        This choropleth project was to make a map of one of the SDG indicators. The purpose of my two maps was to show the two indicators for the target 5.5. The goal was to discover which countries were achieving target 5.5, which ensures women’s full and effective participation and equal opportunities for leadership at all levels of decision-making, the best. This could also allow the UN to see which nations require more aid to achieve this target. 
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FEATURE IMAGE
+  ========================== -->
+
+  <div class="container">
+
+    <div class="feature-image">
+      <img src="images/UN_wom_par_final.png" alt="Feature Image">
+    </div>
+
+  </div>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2>Project Overview</h2>
+
+            <p>
+             The project consisted of choosing one of the UN’s SDG indicators and creating a choropleth map of it. By making a choropleth map it would highlight clearly which nations are achieving these indicators. But what is a choropleth map? A choropleth map is a map that shades different geographical areas to show attribute values. The difference in attribute values is normally shown by a visual variable colour value which goes from, for example, light to dark colours.
+            </p>
+
+            <p>
+              I decided to make 2 choropleth maps which cover indicator 5.5.1, which is the proportion of seats held by women in (a) national parliaments and (b) local governments and indicator 5.5.2 which is as mentioned above the proportion of women in managerial positions. SDG 5, Achieve Gender Equality and Empower all Women and Girls, is important to map. This is because despite the improvements in gender equality, these graphs will help to highlight that there is still more that needs to be done. I chose to focus on target 5.5 because it can easily be represented on a choropleth map and the data is relatively easy to collect. 
+            </p>
+
+            <p>
+              The choropleth maps will focus on a global scale and the differences between nations. I have decided to make choropleth maps, using QGIS, because they are easy to make. Furthermore, they are commonly used with the general public making it a map which is easy to interrupt by people.
+            </p>
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Methods</h2>
+
+            <p>
+              To make these two choropleth maps I decided to use QGIS. To do this, I downloaded the data for the indices from the UN data website. I then uploaded it to QGIS and then I uploaded the UN’s countries data as well. Then I joined both the data sets together and removed all the data that was not required. I then changed the colour and band thickness. I also highlighted all the countries that had above 50% in attribute table and made the band lines thicker. I also added the labels and arrows to the above 50% countries. 
+            </p>
+
+            <ul>
+              <li>Data collection: The data was collected from the UN’s data base collection for each indicator</li>
+              <li>Cartographic design choices: The cartographic design choices will mainly focus on the colour choices. I decided to use green for the first map as, despite it having a positive connation, I feel it works for these maps as these indicators should be a positive outcome. For the other graph I used blue to purple scale because I felt it was a neutral colour. Finally for both graphs I made the nations with over 50% have darker and thicker boarder lines to highlight them more. This helps the reader focus on which nations are achieving this goal.</li>
+            </ul>
+
+          </div>
+
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Results & Findings</h2>
+
+            <p>
+              In the first graph, the countries which had over 50% women in parliament were Cuba, Bolivia, United Arab Emirates and Rwanda. We can also see that most of western Europe, Austraila, New Zealand and the countries in the South of Africa have also high percentages of women in parliament, with 30-50%. The nations which the UN should focus their resource are the ones in the middle of Africa and  most nations in Asia.
+            </p>
+
+            <p>
+              The second graph has a lot of missing data. The nations with over 50% of women in managerial positions are Botswana, Barbados and Kenya. Due to the lack of data one cannot conclude which areas the UN should focus their help. However, the UN could encourage or help to collect the data from the missing countries so that one could determine where they should focus their resources. 
+            </p>
+
+            <div class="gallery">
+
+              <div class="gallery-item">
+                <img src="images/UN_wom_par_final.png" alt="Feature Image">
+              </div>
+
+              <div class="gallery-item">
+                <img src="images/UN_wom_mang_final.png" alt="Feature Image">
+              </div>
+
+              <div class="gallery-item gallery-iframe">
+                <div class="iframe-wrapper">
+                  <iframe src="https://jlemaitre5869.github.io/attempt4/" title="Interactive map 3" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                  <button class="expand-btn" aria-label="Open larger view">⤢</button>
+                </div>
+              </div>
+
+              <div class="gallery-item gallery-iframe">
+                <div class="iframe-wrapper">
+                  <iframe src="https://jlemaitre5869.github.io/GIS-Website-Portfolio/" title="Interactive map 4" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                  <button class="expand-btn" aria-label="Open larger view">⤢</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p>
+              Through making these maps, I gained the technical skill to produce choropleth maps on QGIS. It also helped develop my skills of using QGIS and understand what different functions it has. I also learned how to import data to QGIS and how to merge to data sets. In the second part, I learnt how to do HTML coding and how to make a basic webpage.
+            </p>
+
+            <p>
+              The limitation of this study was that the UN’s database for indicators had a lot of missing data. Many of the indicators had a lot of nations which did not have any data. This meant that there was only a limited number of indicators one could use. In addition, between the different years there was also missing data. This is also created problems as it meant that I had to choose older year, since they had the most data. 
+            </p>
+
+            <p>
+              In addition, choropleth maps are not the best maps to use to presents ones data. For example, choropleth maps requires an enumeration unit to place the data, which can cause problems if there is not data for such a large area. Choropleth maps can also lead to normalisation of the data. Moreover, these maps tend to highlight the countries with larger areas, but SDG indicators and other socio-economic problems tend to be influenced by more than just population density. In addition, these maps do not represent the small island nation well as they are too small to see. The maps, also, do not give exact values to countries but provides a range for a specific colour. Finally, these maps can cause issues for individuals with colours vision deficiency if the colour schemes are not chosen well. 
+            </p>
+
+            <p>
+              For future studies it would have been nice to have data for all nations so that we could interpret the data. It could also be possible for the managerial position to make a map on a regional scale to see if there are disparities between rural and urban. Future work could also make different maps to present the data about the indicators. 
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3>Project Details</h3>
+
+            <p><strong>Student:</strong> Juliette Lemaitre</p>
+
+            <p><strong>Course:</strong> UCSCIEESL5	Geographical Information Systems (GIS)</p>
+
+            <p><strong>Instructor:</strong> Britta Ricker</p>
+
+            <p><strong>Date:</strong> Spring 2026</p>
+
+            <p><strong>Study Area:</strong> Utrecht</p>
+
+          </div>
+
+          <!-- SOFTWARE -->
+          <div class="sidebar-card">
+
+            <h3>Software & Tools</h3>
+
+            <p>QGIS</p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+  <!-- Image modal (lightbox) -->
+  <div class="image-modal" id="imageModal" role="dialog" aria-hidden="true">
+    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <img id="modalImage" src="" alt="Expanded image">
+    <div id="modalIframe" class="modal-iframe" style="display:none;"></div>
+  </div>
+
+  <script>
+    (function(){
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      const modalIframe = document.getElementById('modalIframe');
+      const closeBtn = document.getElementById('modalClose');
+
+      function openModal(src, alt){
+        // open image in modal
+        modalIframe.style.display = 'none';
+        modalImg.style.display = '';
+        modalImg.src = src;
+        modalImg.alt = alt || '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      function openIframeModal(src){
+        // open iframe in modal
+        modalImg.style.display = 'none';
+        modalIframe.style.display = 'block';
+        modalIframe.innerHTML = `<iframe src="${src}" title="Expanded interactive view" loading="eager" allowfullscreen></iframe>`;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+        // remove iframe content
+        modalIframe.innerHTML = '';
+        modalIframe.style.display = 'none';
+        modalImg.style.display = '';
+      }
+
+      // Click on any gallery image (image lightbox)
+      document.querySelectorAll('.gallery-item img').forEach(img => {
+        img.addEventListener('click', (e) => {
+          openModal(img.src, img.alt);
+        });
+      });
+
+      // Expand buttons for embedded iframes
+      document.querySelectorAll('.expand-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const wrapper = btn.closest('.iframe-wrapper');
+          if(!wrapper) return;
+          const iframe = wrapper.querySelector('iframe');
+          if(iframe && iframe.src){
+            openIframeModal(iframe.src);
+          }
+        });
+      });
+
+      // Prevent clicks inside modal iframe from closing modal
+      modalIframe.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      // Close handlers
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal || e.target === modalImg) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeModal();
+      });
+
+      const downloadGalleryBtn = document.getElementById('downloadGalleryBtn');
+      if(downloadGalleryBtn){
+        downloadGalleryBtn.addEventListener('click', (event) => {
+          event.preventDefault();
+          const galleryImages = document.querySelectorAll('.gallery-item img');
+          galleryImages.forEach((img, index) => {
+            const imageUrl = img.src;
+            const fileName = imageUrl.split('/').pop().split('?')[0] || `gallery-image-${index + 1}.png`;
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Project Title</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:500px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-figure{
+      margin:1.5rem auto;
+      max-width:720px;
+      text-align:center;
+    }
+
+    .content-figure img{
+      width:100%;
+      height:auto;
+      border-radius:16px;
+      display:block;
+      margin:auto;
+    }
+
+    .content-figure figcaption{
+      margin-top:0.75rem;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:180px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:320px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+
+        <a href="index.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        Multicriteria Analysis
+      </h1>
+
+      <p>
+       Through this project I learn about multicriteria analysis. I will do this by analysing a research paper which used both GIS and multicriteria analysis. I will determine the criteria they used, where they collected their data, what their methods and main findings were. This has important implications because using this analysis allows us to incorporate human preferences and different variables. 
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2>What is Multicriteria Analysis?</h2>
+
+            <p>
+              Multicriteria analysis (MCA) is used a lot with GIS to help decision making. But what actually is it? MCA is a decision-making tool which helps evaluate multiple variable, that are not related or conflicting, by providing them with a score from a specific criteria (Malczewski, 2018). It is a way to provide information about human preferences and the importance of each variables (Malczewski, 2018). To evaluate these variables during the analysis one normally uses a decision matrix, as shown below (Malczewski, 2018).
+            </p>
+
+            <figure class="content-figure">
+              <img src="images/decision matrix.png" alt="Multicriteria analysis result map" />
+              <figcaption>Figure 1.0 Table showing analysis process used for MCA (Malczewski, 2018)
+https://www.sciencedirect.com/science/chapter/referencework/pii/B9780124095489096986 
+</figcaption>
+            </figure>
+
+            <p>
+              MCA is valuable in GIS because it provides information about priorities or weight of variables to locations (Malczewski, 2018). By using both GIS, the spatial patterns, and MCA we can find a way to combine geographic data with human preferences which can lead to better decisions making (Malczewski, 2018). 
+            </p>
+
+            <p>
+              MCA is also valuable because it helps to answer multiple questions. For example it can answer to following questions:
+            </p>
+
+            <ul>
+              <li>Where are the most suitable locations for a new development?</li>
+              <li>Where should conservation efforts be prioritized?</li>
+              <li>Which areas are most vulnerable to climate impacts?</li>
+              <li>Where should nature-based solutions be implemented?</li>
+              <li>Which locations balance environmental and social needs?</li>
+            </ul>
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Analysis of Research Paper</h2>
+
+            <p>
+              For this project as mentioned above I am going to look at a research paper a see how they have used multicriteria analysis for decision making. The research paper I am going to focus on is ‘Flood Risk Mapping Using GIS and Multi-Criteria Analysis: A Greater Toronto Area Case Study’.
+            </p>
+
+            <p>
+              In this research paper, it address both a social and environmental problem, which is the flooding risk in Greater Toronto Area (Rincón et al., 2018). Through doing this research paper it could help with flood mitigation in urban areas (Rincón et al., 2018). It does this by looking at how similar the GIS and multicriteria analysis is to the official flood plain map and which areas should be focused on (Rincón et al., 2018). The map below shows the study area they were looking at. 
+            </p>
+
+            <div class="content-figure">
+              <img src="images/Map RP.png" alt="Flood Risk Map of Greater Toronto Area">
+              <figcaption>Figure 1.1 Map of Area covered by research paper (Rincón et al., 2018)
+https://doi.org/10.3390/geosciences8080275
+</figcaption>
+            </div>
+
+            <p>
+              In this research paper, they made different criteria for four scenarios (Rincón et al., 2018). This first scenario, which was the most accurate had the following criteria: distance to streams, height above nearest drainage, slope, the curve number and the floodplain (Rincón et al., 2018). The second scenario only considered distance to streams, height above nearest drainage and the curve number (Rincón et al., 2018). The thirds scenario effective precipitation, distance to stream, height above nearest drainage, and slope (Rincón et al., 2018). Finally, the fourth scenario considered total precipitation, distance to streams, height above nearest drainage, slop, and curve number (Rincón et al., 2018). This can clearly be shown in the figure below. This research paper also included a social and economic vulnerability as criteria (Rincón et al., 2018). This was to help determine the total flood vulnerability in the watershed under three scenarios (Rincón et al., 2018). The first scenario was given a higher importance to the social vulnerability (Rincón et al., 2018). The second scenario was given equal importance to both social and economic vulnerability (Rincón et al., 2018). Finally,  the third scenario was given more importance to the economic vulnerability (Rincón et al., 2018).
+            </p>
+
+            <p>
+              These criteria were important because it allows urban planner to determine which areas are the most at risk by taking into account a variety of different social variables. 
+            </p>
+
+            <div class="content-figure">
+              <img src="images/criteria.png" alt="Flood Risk Map of Greater Toronto Area">
+              <figcaption>Figure 1.2 The different criteria used for each scenario of the research paper (Rincón et al., 2018)
+https://doi.org/10.3390/geosciences8080275
+</figcaption>
+            </div>
+
+            <p>
+              The create their maps on GIS they used multiple data sources. They used a digital elevation model (DEM) map with a ground resolution of 5 m × 5 m, a soil type map, the Don River watershed boundary map, the greater Toronto area boundary map, a land-use map, and a streams map (Rincón et al., 2018). In addition, precipitation data from rainfall gauges was also used (Rincón et al., 2018). The precipitation data was provided by the TRCA and also a floodplain map (Rincón et al., 2018). The researchers also include the census data from 2016 from Statistics Canada, along with the census tract boundaries (Rincón et al., 2018).
+            </p>
+
+            <p>
+              To combine the criteria for their analysis they used an AHP method, Analytical Hierarchy Process (Rincón et al., 2018). This was used as a way to weigh the different criteria in the context of MCDM. After they combined the criteria, they reclassified them to 1-5 scale (Rincón et al., 2018). Then in ArcMap, using the Weigthed Overlay Tool, they carried out a spatial overlay of all the criterion maps (Rincón et al., 2018). Finally, to achieve the output raster cells they multiplied the criterion values with their weighted value and then summed them (Rincón et al., 2018). 
+            </p>
+
+            <p>
+              They, also, had to conduct some calculations to find some of the criteria (Rincón et al., 2018). For the slope criteria it was derived from the DEM (Rincón et al., 2018). The height above nearest drainage was also derived from the DEM but also the streams layer (Rincón et al., 2018). In addition, the distance to streams was calculated using the Euclidean distance tool (Rincón et al., 2018).
+            </p>
+
+            <div class="content-figure">
+              <img src="images/calculations.png" alt="Flood Risk Map of Greater Toronto Area">
+              <figcaption>Figure 1.3 The calculation that were done by the weighted overlay tool (Rincón et al., 2018)
+https://doi.org/10.3390/geosciences8080275
+</figcaption>
+            </div>
+
+            <p>
+              The results from this research paper found that scenario 2 was the closest to the official TRAC floodplain map (Rincón et al., 2018). It also found that including the social and economic vulnerabilities gravely affected the data from the map (Rincón et al., 2018). By including the criteria precipitation to both scenario 3 and 4, it changed the hazard patterns on the maps (Rincón et al., 2018). However it did make them less similar to scenario 1 (Rincón et al., 2018). Finally, the results showed that when using V3 scenario, the one which has economic vulnerability as highest, it shifted the hazard risk area to the industrial and commercial zones (Rincón et al., 2018).
+            </p>
+
+            <p>
+              The use of MCA allowed there to be multiple scenarios to be compared and analysed. It also allowed water resource planers to know which areas to focus more detailed assessment of flood risk (Rincón et al., 2018). 
+            </p>
+            
+            <div class="content-figure">
+              <img src="images/results.png" alt="Flood Risk Map of Greater Toronto Area">
+              <figcaption>Figure 1.4 Final maps produce by researchers for the different scenarios and for the initial social and economic vulnerability (Rincón et al., 2018)
+https://doi.org/10.3390/geosciences8080275 
+</figcaption>
+
+            </div>
+
+
+
+
+
+          </div>
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Bibliography</h2>
+
+            <p>
+              Malczewski, J. (2018). Multicriteria Analysis. Comprehensive Geographic Information Systems, 197–217. https://doi.org/10.1016/b978-0-12-409548-9.09698-6
+
+            </p>  
+
+            <p>
+Rincón, D., Khan, U., & Armenakis, C. (2018). Flood Risk Mapping Using GIS and Multi-Criteria Analysis: A Greater Toronto Area Case Study. Geosciences, 8(8), 275. https://doi.org/10.3390/geosciences8080275
+
+            </p>
+
+          </div>
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p>
+              Doing this project has allowed me to truly understand what multicriteria analysis and what process goes into completing it. It also highlighted its importance because by just changing the criteria it can have drastic impacts on the map you produce. I found it very interesting to analysis the research paper and how it was used to determine flood risk. In the future, I would like to attempt to use it for one of my maps.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3>Project Details</h3>
+
+            <p><strong>Student:</strong> Juliette Lemaitre</p>
+
+            <p><strong>Course:</strong> UCSCIEESL5	Geographical Information Systems (GIS)</p>
+
+            <p><strong>Instructor:</strong> Britta Ricker</p>
+
+            <p><strong>Date:</strong> Spring 2026</p>
+
+            <p><strong>Study Area:</strong> Greater Toronto Area</p>
+
+          </div>
+
+      
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
